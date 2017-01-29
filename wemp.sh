@@ -98,16 +98,19 @@ mac=$(macchanger -s $interface|grep Current|awk '{ print $3 }')
 #Parse iwlistOutArray
 ssids=()
 channels=()
+ssidLastUsed=""
 for str in "${iwlistOutArray[@]}"
 do
-    if [[ "$str" == "ESSID:"* ]]
+    if [[ "$str" == "ESSID:"* && "$ssidLastUsed" != "true" ]]
     then
         newstr=`echo "$str" | cut -d \" -f2`
         ssids+=($newstr)
-    elif [[ "$str" == "Channel:"* ]]
+        ssidLastUsed=true
+    elif [[ "$str" == "Channel:"* && "$ssidLastUsed" == "true" ]]
     then
         newstr=`echo "$str" | cut -d ':' -f2`
         channels+=($(($newstr)))
+        ssidLastUsed=false
     fi
 done
 
