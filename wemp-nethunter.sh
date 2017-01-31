@@ -38,7 +38,7 @@ info() { printf "[INFO] $1\n" ; }
 err() { printf "[ERROR] $1\n" ; }
 #The actual attack function
 attack() {
-    interface=wlan1
+    interface="wlan1"
     monitor="$interface"mon
     ssid=$2
     channel=$3
@@ -70,29 +70,29 @@ quit() {
 # MAIN SCRIPT #
 ###############
 #Check arg number
-if [ "$#" != "2" -a "$#" != "3" ]
+if [ "$#" != "1" -a "$#" != "2" ]
 then
     err "A wrong number of arguments was given"
     info "How to run this script:"
-    info "$0 <interface> <numberOfRequests> [ssid]"
+    info "$0 <numberOfRequests> [ssid]"
     info "[ssid] is an optional argument"
     info "Terminating..."
     exit 1
 fi
 
 #Greeting message
-info "################"
-info "# Wireless EMP #"
-info "################\n"
+info "##################################"
+info "# Wireless EMP Nethunter Edition #"
+info "##################################\n"
 
 #Initialize
 info "Initializing..."
 trap quit EXIT # trap exit
-interface="$1"
-requestNum="$2"
+interface="wlan1"
+requestNum="$1"
 iwlistOut="`iwlist $interface scanning | tr '\n' ' ' | expand`"
 read -r -a iwlistOutArray <<< "$iwlistOut"
-airmon-ng check kill
+airmon-ng check kill <<< "n"
 ifconfig $interface up
 mac=$(macchanger -s $interface|grep Current|awk '{ print $3 }')
 
@@ -125,9 +125,9 @@ fi
 length=${#ssids[@]}
 
 #Check to see if user gave an ssid
-if [ "$#" == "3" ]
+if [ "$#" == "2" ]
 then
-    ssid="$3"
+    ssid="$2"
     #See if given ssid is in ssids
     for (( i=0; i<$length; i++ ))
     do
