@@ -55,7 +55,6 @@ quit() {
     killall -q airbase-ng aireplay-ng ferret hamster sslstrip
     airmon-ng stop "$interface"mon <<< "n" &> /dev/null
 	ifconfig $interface up
-	service NetworkManager start
 	info "Clean up finished"
 	if (( $# == 1 ))
 	then
