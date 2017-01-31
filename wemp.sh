@@ -57,13 +57,7 @@ quit() {
 	ifconfig $interface up
 	service NetworkManager start
 	info "Clean up finished"
-	if (( $# == 1 ))
-	then
-	    exit $1
-	else
-	    info "Goodbye"
-	    exit 0
-	fi
+    exit $1
 }
 
 ###############
