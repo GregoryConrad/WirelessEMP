@@ -56,12 +56,7 @@ quit() {
     airmon-ng stop "$interface"mon <<< "n" &> /dev/null
 	ifconfig $interface up
 	info "Clean up finished"
-	if (( $# == 1 ))
-	then
-	    exit $1
-	else
-	    exit 0
-	fi
+	exit $1
 }
 
 ###############
