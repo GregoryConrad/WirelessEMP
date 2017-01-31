@@ -40,9 +40,9 @@ err() { printf "[ERROR] $1\n" ; }
 attack() {
     interface="wlan1"
     monitor="$interface"mon
-    ssid=$2
-    channel=$3
-    requestNum=$4
+    ssid=$1
+    channel=$2
+    requestNum=$3
     info "Putting $interface into monitor mode ($monitor) with channel $channel"
     airmon-ng start $interface $channel
     info "Attacking $ssid"
@@ -137,7 +137,7 @@ then
             info "Attacking $ssid in 10 seconds"
             info "Hit CTRL+C to abort"
             sleep 10
-            attack "$interface" "$ssid" "${channels[$i]}" $requestNum
+            attack "$ssid" "${channels[$i]}" $requestNum
             quit
         fi
     done
@@ -151,7 +151,7 @@ else
     #For each network, launch the attack
     for (( i=0; i<$length; i++ ))
     do
-        attack "$interface" "${ssids[$i]}" "${channels[$i]}" $requestNum
+        attack "${ssids[$i]}" "${channels[$i]}" $requestNum
     done
 fi
 quit
