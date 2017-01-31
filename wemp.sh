@@ -56,11 +56,12 @@ quit() {
     airmon-ng stop "$interface"mon
 	ifconfig $interface up
 	service NetworkManager start
-	info "Clean up finished. Good bye"
+	info "Clean up finished"
 	if (( $# == 1 ))
 	then
 	    exit $1
 	else
+	    info "Goodbye"
 	    exit 0
 	fi
 }
@@ -140,6 +141,7 @@ then
             quit
         fi
     done
+    err "The network you specified was not found"
 else
     info "It looks like we have $length network(s)"
     info "Starting the attack in 10 seconds"
