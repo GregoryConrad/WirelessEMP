@@ -53,7 +53,7 @@ attack() {
 quit() {
     info "Cleaning up..."
     killall -q airbase-ng aireplay-ng ferret hamster sslstrip
-    airmon-ng stop "$interface"mon
+    airmon-ng stop "$interface"mon <<< "n"
 	ifconfig $interface up
 	service NetworkManager start
 	info "Clean up finished"
@@ -61,7 +61,6 @@ quit() {
 	then
 	    exit $1
 	else
-	    info "Goodbye"
 	    exit 0
 	fi
 }
