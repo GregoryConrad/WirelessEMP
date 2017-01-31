@@ -53,7 +53,7 @@ attack() {
 quit() {
     info "Cleaning up..."
     killall -q airbase-ng aireplay-ng ferret hamster sslstrip
-    airmon-ng stop "$interface"mon <<< "n"
+    airmon-ng stop "$interface"mon <<< "n" &> /dev/null
 	ifconfig $interface up
 	service NetworkManager start
 	info "Clean up finished"
@@ -91,7 +91,7 @@ interface="wlan1"
 requestNum="$1"
 iwlistOut="`iwlist $interface scanning | tr '\n' ' ' | expand`"
 read -r -a iwlistOutArray <<< "$iwlistOut"
-airmon-ng check kill <<< "n"
+airmon-ng check kill <<< "n" &> /dev/null
 ifconfig $interface up
 mac=$(macchanger -s $interface|grep Current|awk '{ print $3 }')
 
