@@ -54,9 +54,9 @@ quit() {
     info "Cleaning up..."
     killall -q airbase-ng aireplay-ng ferret hamster sslstrip
     airmon-ng stop "$interface"mon <<< "n" &> /dev/null
-	ifconfig $interface up
-	info "Clean up finished"
-	exit $1
+    ifconfig $interface up
+    info "Clean up finished"
+    exit $1
 }
 
 ###############
